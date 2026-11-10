@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Hook de git (no de Copilot): antes de cada commit busca secretos en lo que vas a confirmar.
+# Se activa una vez por clon con:  git config core.hooksPath .githooks
+set -euo pipefail
+if ! command -v gitleaks >/dev/null 2>&1; then
+  echo "pre-commit: gitleaks no está instalado; no se puede comprobar si hay secretos." >&2
+  exit 1
+fi
+if ! gitleaks git --pre-commit --staged --redact --no-banner -v; then
+  echo "" >&2
+  echo "COMMIT BLOQUEADO: hay un secreto en lo que vas a confirmar." >&2
+  echo "Quítalo, usa Secret Manager y, si era real, revócalo y rótalo." >&2
+  exit 1
+fi
