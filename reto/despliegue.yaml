@@ -1,0 +1,46 @@
+# RETO FINAL · segunda parte
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: teselas-lector
+  namespace: visor
+rules:
+  - apiGroups: [""]
+    resources: ["configmaps", "secrets"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: teselas-lector
+  namespace: visor
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: teselas-lector
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: visor
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teselas
+  namespace: visor
+spec:
+  replicas: 2
+  selector:
+    matchLabels: { app: teselas }
+  template:
+    metadata:
+      labels: { app: teselas }
+    spec:
+      containers:
+        - name: teselas
+          image: igeo/teselas:latest
+          securityContext:
+            privileged: true
+          env:
+            - name: DB_PASSWORD
+              value: "Teselas.Produccion.2024"

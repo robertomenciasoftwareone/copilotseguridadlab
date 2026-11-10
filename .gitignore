@@ -1,0 +1,9 @@
+.env
+.env.*
+*.pem
+*.tfstate*
+.terraform/
+__pycache__/
+.gitleaks-informe.json
+results.sarif
+*.sarif

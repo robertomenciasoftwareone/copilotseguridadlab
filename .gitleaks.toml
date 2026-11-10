@@ -1,0 +1,14 @@
+# Configuración de gitleaks para IGEO: reglas por defecto + reglas propias.
+# Las reglas por defecto detectan tokens con formato conocido (GitHub, Google, AWS...).
+# Las contraseñas no tienen formato: por eso añadimos una regla propia ("custom pattern").
+title = "IGEO gitleaks"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "igeo-asignacion-de-contrasena"
+description = "Contraseña o clave asignada en claro en un fichero de configuración"
+regex = '''(?i)\b[a-z_.]*(password|passwd|pwd|secret_key|clave)[a-z_]*\s*[:=]\s*["']?([^\s"'$<{]{8,})'''
+secretGroup = 2
+keywords = ["password", "passwd", "pwd", "secret_key", "clave"]
