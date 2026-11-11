@@ -17,7 +17,7 @@ Este repositorio contiene la infraestructura (Terraform en Google Cloud), los ma
 - Cada carga de trabajo, su propia identidad (cuenta de servicio de GCP o ServiceAccount de Kubernetes) con solo los permisos que usa.
 
 ## Cómo se valida (obligatorio antes de dar algo por terminado)
-- Secretos: `gitleaks dir .`
+- Secretos: `gitleaks dir <carpeta> -c .gitleaks.toml`
 - Infraestructura y Kubernetes: `checkov -d <carpeta> --compact --quiet` y `trivy config <carpeta>`.
 - No des una tarea por terminada con hallazgos HIGH o CRITICAL abiertos. Si uno no aplica, márcalo con su supresión explicada (`#checkov:skip=CKV_...:motivo`).
 

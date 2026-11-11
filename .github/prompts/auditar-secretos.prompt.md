@@ -8,7 +8,7 @@ tools: ['read', 'search', 'execute']
 
 # Auditar secretos
 
-1. Ejecuta `gitleaks dir ${input:carpeta:legacy} -v` desde la raíz del repositorio (usa la configuración `.gitleaks.toml`).
+1. Ejecuta desde la raíz del repositorio `gitleaks dir ${input:carpeta:legacy} -v --redact -c .gitleaks.toml` (el `-c` es imprescindible: sin él gitleaks no usa nuestra regla de contraseñas).
 2. Lee además los ficheros de esa carpeta y busca lo que gitleaks no detecta (contraseñas en comentarios, URLs con usuario y contraseña, credenciales en texto libre).
 3. Devuelve SOLO esta tabla:
 
