@@ -17,7 +17,7 @@ handoffs:
 2. Escanea lo que has tocado:
    - `checkov -d <carpeta> --compact --quiet`
    - `trivy config <carpeta>`
-   - `gitleaks dir <carpeta>`
+   - `gitleaks dir <carpeta> -c .gitleaks.toml`
 3. Si hay hallazgos HIGH o CRITICAL, corrige y vuelve al paso 2. Máximo 5 iteraciones.
 4. Si un hallazgo no aplica, no lo escondas: añade la supresión con el motivo (`#checkov:skip=CKV_...:motivo`) y menciónalo en el resumen.
 5. Al terminar, llama al subagente `seguridad-revisor` y resume su veredicto.
