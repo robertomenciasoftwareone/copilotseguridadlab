@@ -1,0 +1,3 @@
+# Sin excepciones activas. Toda futura excepcion debe documentar su motivo.
+misconfigurations: []
+secrets: []

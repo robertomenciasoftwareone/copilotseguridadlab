@@ -1,0 +1,46 @@
+# RBAC del pipeline de despliegue del visor. Solo en el namespace visor.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: visor-deployer
+  namespace: visor
+automountServiceAccountToken: false
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: visor-deployer
+  namespace: visor
+rules:
+  # trivy:ignore:KSV-0048 EXCEPCIÓN-SEGURIDAD: el pipeline debe crear y actualizar Deployments del visor; sin ello no hay despliegue.
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get", "list", "watch", "create", "update", "patch"]
+  # trivy:ignore:KSV-0049 EXCEPCIÓN-SEGURIDAD: el despliegue crea y actualiza ConfigMaps de configuración del visor (sin secretos).
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["get", "list", "watch", "create", "update", "patch"]
+  # Services e Ingress se gestionan fuera de este pipeline (Terraform u otra identidad). Solo lectura.
+  - apiGroups: [""]
+    resources: ["services"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["networking.k8s.io"]
+    resources: ["ingresses"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: visor-deployer
+  namespace: visor
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: visor-deployer
+subjects:
+  - kind: ServiceAccount
+    name: visor-deployer
+    namespace: visor
