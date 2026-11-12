@@ -1,0 +1,11 @@
+title = "IGEO gitleaks CI"
+
+[extend]
+path = ".gitleaks.toml"
+
+[[allowlists]]
+description = "Material de formacion con fallos deliberados."
+paths = [
+  '''^legacy/''',
+  '''^reto/''',
+]
