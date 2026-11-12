@@ -1,0 +1,10 @@
+# Este fichero asigna responsables para revisar los controles de seguridad y la infraestructura.
+/.github/ @igeo-org/plataforma
+/.github/hooks/ @igeo-org/plataforma @igeo-org/seguridad
+/.github/workflows/ @igeo-org/plataforma @igeo-org/seguridad
+/.gitleaks.toml @igeo-org/seguridad
+/.gitleaks-ci.toml @igeo-org/seguridad
+/.trivyignore.yaml @igeo-org/seguridad
+/scripts/hooks/ @igeo-org/seguridad
+/infra/ @igeo-org/plataforma
+/k8s/ @igeo-org/plataforma
